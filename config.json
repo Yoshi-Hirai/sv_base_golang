@@ -1,0 +1,13 @@
+{
+    "dbDriver" : "postgres",
+    "dbName" : "mydatabase",
+    "dbUser" : "user",
+    "dbPasswd" : "password",
+    "dbHost" : "127.0.0.1",
+    "dbPort" : "5432",
+    "dbNet" : "tcp",
+    "dbParseTime" : true,
+    "dbAllowNativePasswords" : true,
+    "dbCollation" : "utf8mb4_unicode_ci",
+    "dbSslMode" : "disable"
+}

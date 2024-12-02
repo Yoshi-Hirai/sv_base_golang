@@ -1,0 +1,13 @@
+{
+    "dbDriver" : "mysql",
+    "dbName" : "feelcycle",
+    "dbUser" : "riazoryoshi_wp1",
+    "dbPasswd" : "uyjx85mnws",
+    "dbHost" : "riazoryoshi.wpx.jp:3306",
+    "dbPort" : "3306",
+    "dbNet" : "tcp",
+    "dbParseTime" : true,
+    "dbAllowNativePasswords" : true,
+    "dbCollation" : "utf8mb4_unicode_ci",
+    "dbSslMode" : "able"
+}
