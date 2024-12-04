@@ -6,6 +6,7 @@ import (
 	"sv_base/config"
 	"sv_base/log"
 	"sv_base/test"
+	"sv_base/webhandler"
 )
 
 // ---- Global Variable
@@ -54,11 +55,11 @@ func main() {
 	// PSQLへの接続テスト
 	test.TestPostgresConnect()
 
-	/*
-		webErr := pkg_webhandler.Webhandler_init("8080")
-		if webErr != nil {
-			slog.Info("Webhandler Error", "err", webErr)
-			return
-		}
-	*/
+	// 指定ポートでサーバーを立ち上げる
+	errWeb := webhandler.WebHandlerInit("8080")
+	if errWeb != nil {
+		slog.Info("Webhandler Error", "err", errWeb)
+		return
+	}
+
 }
