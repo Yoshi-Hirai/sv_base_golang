@@ -27,12 +27,25 @@ func GetInstance() *slog.Logger {
 
 // logBaseInit (private)slogシステムの初期化 & テキスト用ログロガーの設定 & json(構造化)ログロガーSingleton生成関数
 func logBaseInit() {
+	// HandlerOptions
+	// AddSource: ソースコード上でのlogステートメント場所をログに含めるか否かを設定
+	// Level: 出力すべき最小のログレベルの設定
+	// ReplaceAttr ログのkey=valueペアのカスタマイズ設定
+	ops := slog.HandlerOptions{
+		AddSource: true,
+		Level:     slog.LevelDebug,
+		ReplaceAttr: func(groups []string, a slog.Attr) slog.Attr {
+			if a.Key == "msg" && a.Value.String() == "Debug message" {
+				a.Value = slog.StringValue("New Debug message")
+			}
+			return a
+		},
+	}
 	// テキスト用ログロガー
-	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
-	// logを出力するカレントの関数名を出力しようとしたが、関数名の取得がうまくいかなかった。
+	logger := slog.New(slog.NewTextHandler(os.Stdout, &ops))
 	logger.Info("TextLogger Create Success.")
 	slog.SetDefault(logger)
 
 	// JSON用ログロガー
-	jsonLogger = slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	jsonLogger = slog.New(slog.NewJSONHandler(os.Stdout, &ops))
 }
