@@ -18,6 +18,7 @@ func WebHandlerInit(port string) error {
 
 	http.HandleFunc("/sayhello", handleSayHelloName)
 	http.HandleFunc("/jsonSampleResponse", handleJsonSampleResponse)
+	http.HandleFunc("/postMultiPartFormSampleResponse", handlePostMultiPartFormSampleResponse)
 
 	webhandlerErr := http.ListenAndServe(":"+port, nil)
 	if webhandlerErr != nil {
@@ -93,6 +94,56 @@ func handleJsonSampleResponse(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
+	output, err := json.Marshal(&post)
+	if err != nil {
+		return
+	}
+	fmt.Fprint(w, string(output))
+}
+
+// Postリクエスト(multipart/form-data)を処理を応答するサンプルwebhandler
+func handlePostMultiPartFormSampleResponse(w http.ResponseWriter, r *http.Request) {
+	post := Post{
+		Id:      1,
+		Content: "RB Formula1(POST)",
+		Member: []Member{
+			Member{
+				Id:   1,
+				Name: "Yuki",
+			},
+			Member{
+				Id:   2,
+				Name: "Liam",
+			},
+		},
+		Result: []Result{
+			Result{
+				Id:     22,
+				Rank:   9,
+				Race:   "LVG",
+				Driver: "Yuki",
+			},
+			Result{
+				Id:     22,
+				Rank:   16,
+				Race:   "LVG",
+				Driver: "Liam",
+			},
+		},
+	}
+
+	// Postパラメータ(multipart/form-data)を出力
+	slog.Info("header", "header", r.Header)
+	slog.Info("PostParameter", "field1", r.FormValue("field1"), "field2", r.FormValue("field2"))
+	for k, v := range r.MultipartForm.Value {
+		str := k + " "
+		str = str + strings.Join(v, "") + " "
+	}
+
+	exampleResult := Result{Id: 1024, Rank: 30}
+	exampleResult.Race = r.FormValue("field1")
+	exampleResult.Driver = r.FormValue("field2")
+	post.Result = append(post.Result, exampleResult)
 	output, err := json.Marshal(&post)
 	if err != nil {
 		return
