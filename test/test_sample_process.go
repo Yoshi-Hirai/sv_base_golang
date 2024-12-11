@@ -3,6 +3,7 @@ package test // パッケージ名はディレクトリ名と同じにする
 
 import (
 	"log/slog"
+	"sv_base/convert"
 	"sv_base/db"
 	"sv_base/fileio"
 	"sv_base/redis"
@@ -98,6 +99,14 @@ func TestCsvFileReadWrite() {
 		slog.Error("Write Csv Failed", slog.String("error", err.Error()))
 		return
 	}
+}
+
+// convertパッケージに用意された関数を実行するサンプル処理
+func TestConvertPackage() {
+
+	sampleTime, _ := convert.ConvertStringToTime("2024/12/11 11:50:00")
+	slog.Info("ConvertTime", "Result", sampleTime)
+
 }
 
 //---- private function ----

@@ -54,6 +54,9 @@ func main() {
 	// PSQLへの接続テスト
 	test.TestPostgresConnect()
 
+	// convertパッケージに用意された関数を実行するサンプル処理
+	test.TestConvertPackage()
+
 	/*
 		webErr := pkg_webhandler.Webhandler_init("8080")
 		if webErr != nil {
