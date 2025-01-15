@@ -5,7 +5,7 @@ import (
 
 	"sv_base/config"
 	"sv_base/log"
-	"sv_base/test"
+	"sv_base/webhandler"
 )
 
 // ---- Global Variable
@@ -44,24 +44,21 @@ func main() {
 	}
 
 	// jsonファイル読み書きテスト
-	test.TestJsonFileReadWrite()
+	//test.TestJsonFileReadWrite()
 	// csvファイル読み書きテスト
-	test.TestCsvFileReadWrite()
+	//test.TestCsvFileReadWrite()
 
 	// Redisへの接続テスト
-	test.TestRedisConnect()
-
+	//test.TestRedisConnect()
 	// PSQLへの接続テスト
-	test.TestPostgresConnect()
+	//test.TestPostgresConnect()
 
 	// convertパッケージに用意された関数を実行するサンプル処理
-	test.TestConvertPackage()
+	//test.TestConvertPackage()
 
-	/*
-		webErr := pkg_webhandler.Webhandler_init("8080")
-		if webErr != nil {
-			slog.Info("Webhandler Error", "err", webErr)
-			return
-		}
-	*/
+	webErr := webhandler.WebHandlerInit("8080")
+	if webErr != nil {
+		slog.Info("Webhandler Error", "err", webErr)
+		return
+	}
 }
