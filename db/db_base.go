@@ -4,7 +4,7 @@ package db // パッケージ名はディレクトリ名と同じにする
 import (
 	"database/sql"
 	"log/slog"
-	"sv_base/config"
+	"sv_funapp/config"
 
 	_ "github.com/go-sql-driver/mysql" // for mysql
 	_ "github.com/lib/pq"              // for postgres

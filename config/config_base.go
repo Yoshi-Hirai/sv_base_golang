@@ -4,7 +4,7 @@ package config // パッケージ名はディレクトリ名と同じにする
 import (
 	"log/slog"
 
-	"sv_base/fileio"
+	"sv_funapp/fileio"
 )
 
 // ---- struct

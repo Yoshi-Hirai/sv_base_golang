@@ -3,9 +3,9 @@ package main
 import (
 	"log/slog"
 
-	"sv_base/config"
-	"sv_base/log"
-	"sv_base/test"
+	"sv_funapp/config"
+	"sv_funapp/log"
+	"sv_funapp/test"
 )
 
 // ---- Global Variable

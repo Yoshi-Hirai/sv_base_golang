@@ -3,10 +3,10 @@ package test // パッケージ名はディレクトリ名と同じにする
 
 import (
 	"log/slog"
-	"sv_base/convert"
-	"sv_base/db"
-	"sv_base/fileio"
-	"sv_base/redis"
+	"sv_funapp/convert"
+	"sv_funapp/db"
+	"sv_funapp/fileio"
+	"sv_funapp/redis"
 )
 
 // jsonサンプルストラクト(TestJsonFileReadWriteで利用)
