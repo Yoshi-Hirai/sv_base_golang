@@ -16,6 +16,8 @@ import (
 func WebHandlerInit(port string) error {
 	slog.Info("WebHandler Open", "port", port)
 
+	http.HandleFunc("/timeline", handlerTimelinePost)
+
 	http.HandleFunc("/sayhello", handleSayHelloName)
 	http.HandleFunc("/jsonSampleResponse", handleJsonSampleResponse)
 
