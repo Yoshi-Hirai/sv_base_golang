@@ -35,7 +35,7 @@ var postData []TimeLinePost
 func handlerTimelinePost(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm() //オプションを解析します。デフォルトでは解析しません。
-	slog.Info("Request", "method", r.Method, "form", r.Form, "path", r.URL.Path, "scheme", r.URL.Scheme, "url_long", r.Form["url_long"])
+	slog.Info("Request", "method", r.Method)
 	if r.Method == http.MethodPost {
 
 		// Body が空かどうか確認
@@ -64,14 +64,17 @@ func handlerTimelinePost(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		slog.Info("post", "parms", params)
-		var single TimeLinePost
-		single.AccountId, _ = strconv.Atoi(params["accountId"].(string))
-		single.AccountName = "dummy"
-		single.BoardId = int(params["boardId"].(float64))
-		single.CaptionUrl = params["captionUrl"].(string)
-		single.PostTime = time.Now()
-		single.Text = params["text"].(string)
-		postData = append(postData, single)
+
+		if params["action"] == "post" {
+			var single TimeLinePost
+			single.AccountId, _ = strconv.Atoi(params["accountId"].(string))
+			single.AccountName = "dummy"
+			single.BoardId = int(params["boardId"].(float64))
+			single.CaptionUrl = params["captionUrl"].(string)
+			single.PostTime = time.Now()
+			single.Text = params["text"].(string)
+			postData = append(postData, single)
+		}
 
 		// ソート（降順）
 		sort.Slice(postData, func(i, j int) bool {
@@ -87,6 +90,7 @@ func handlerTimelinePost(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, string(output)) //ここでwに入るものがクライアントに出力されます。
 
 	} else {
+		// POSTリクエスト以外
 		output, err := json.Marshal(&postData)
 		if err != nil {
 			return
