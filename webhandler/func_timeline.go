@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"log/slog"
 	"net/http"
+	"sort"
+	"strconv"
 	"time"
 )
 
@@ -62,15 +64,19 @@ func handlerTimelinePost(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		slog.Info("post", "parms", params)
-
 		var single TimeLinePost
-		single.AccountId = int(params["accountId"].(float64))
+		single.AccountId, _ = strconv.Atoi(params["accountId"].(string))
 		single.AccountName = "dummy"
 		single.BoardId = int(params["boardId"].(float64))
 		single.CaptionUrl = params["captionUrl"].(string)
 		single.PostTime = time.Now()
 		single.Text = params["text"].(string)
 		postData = append(postData, single)
+
+		// ソート（降順）
+		sort.Slice(postData, func(i, j int) bool {
+			return postData[i].PostTime.After(postData[j].PostTime)
+		})
 
 		// 正常なレスポンス
 		w.WriteHeader(http.StatusCreated)
