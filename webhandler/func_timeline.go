@@ -17,15 +17,17 @@ import (
 // ---- struct
 // タイムラインのポスト情報
 type TimeLinePost struct {
-	BoardId     int       `json:"boardid"`
-	AccountId   int       `json:"accountid"`
-	AccountName string    `json:"accountname"`
-	PostTime    time.Time `json:"posttime"`
-	Text        string    `json:"text"`
-	CaptionUrl  string    `json:"captionurl"`
+	MessageUniqueId int       `json:"messageuniqueid"`
+	BoardId         int       `json:"boardid"`
+	AccountId       int       `json:"accountid"`
+	AccountName     string    `json:"accountname"`
+	PostTime        time.Time `json:"posttime"`
+	Text            string    `json:"text"`
+	CaptionUrl      string    `json:"captionurl"`
 }
 
 // ---- Package Global Variable
+var messageUniqueAutoId int
 var postData []TimeLinePost
 
 // ---- public function ----
@@ -67,6 +69,7 @@ func handlerTimelinePost(w http.ResponseWriter, r *http.Request) {
 
 		if params["action"] == "post" {
 			var single TimeLinePost
+			single.MessageUniqueId = messageUniqueAutoId
 			single.AccountId, _ = strconv.Atoi(params["accountId"].(string))
 			single.AccountName = "dummy"
 			single.BoardId = int(params["boardId"].(float64))
@@ -74,6 +77,7 @@ func handlerTimelinePost(w http.ResponseWriter, r *http.Request) {
 			single.PostTime = time.Now()
 			single.Text = params["text"].(string)
 			postData = append(postData, single)
+			messageUniqueAutoId++
 		}
 
 		// ソート（降順）
