@@ -3,9 +3,9 @@ package main
 import (
 	"log/slog"
 
-	"sv_base/config"
-	"sv_base/log"
-	"sv_base/webhandler"
+	"sv_funapp_websocket/config"
+	"sv_funapp_websocket/log"
+	"sv_funapp_websocket/webhandler"
 )
 
 // ---- Global Variable
