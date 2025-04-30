@@ -19,6 +19,8 @@ func WebHandlerInit(port string) error {
 	http.HandleFunc("/sayhello", handleSayHelloName)
 	http.HandleFunc("/jsonSampleResponse", handleJsonSampleResponse)
 
+	http.HandleFunc("/login", HandlerLogin)
+
 	webhandlerErr := http.ListenAndServe(":"+port, nil)
 	if webhandlerErr != nil {
 		return webhandlerErr
