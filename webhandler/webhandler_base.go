@@ -20,6 +20,7 @@ func WebHandlerInit(port string) error {
 	http.HandleFunc("/jsonSampleResponse", handleJsonSampleResponse)
 
 	http.HandleFunc("/login", HandlerLogin)
+	http.HandleFunc("/protected", HandlerProtected)
 
 	webhandlerErr := http.ListenAndServe(":"+port, nil)
 	if webhandlerErr != nil {

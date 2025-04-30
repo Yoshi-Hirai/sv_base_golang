@@ -1,18 +1,26 @@
+// jwt authパッケージ
 package auth
 
 import (
 	//"log/slog"
 	"time"
+
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var jwtKey = []byte("your-secret-key") // [TODO] あとでconfigから読めるようにしてもOK
+// ---- struct
 
 type Claims struct {
 	Username string `json:"username"`	// カスタムClaim
 	jwt.RegisteredClaims				// 標準Claim (exp, iat, etc.)
 }
 
+// ---- Global Variable
+
+// ---- Package Global Variable
+var jwtKey = []byte("your-secret-key") // [TODO] あとでconfigから読めるようにしてもOK
+
+// ---- public function ----
 func GenerateJWT(username string) (string, error) {
 	claims := &Claims{
 		Username: username,
