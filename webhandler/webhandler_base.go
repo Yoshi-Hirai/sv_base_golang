@@ -7,6 +7,8 @@ import (
 	"log/slog"
 	"net/http"
 	"strings"
+
+	"sv_base/auth"
 )
 
 // ---- Package Global Variable
@@ -16,7 +18,7 @@ import (
 func WebHandlerInit(port string) error {
 	slog.Info("WebHandler Open", "port", port)
 
-	http.HandleFunc("/sayhello", handleSayHelloName)
+	http.Handle("/sayhello", auth.AuthMiddleware(http.HandlerFunc(handleSayHelloName)))
 	http.HandleFunc("/jsonSampleResponse", handleJsonSampleResponse)
 
 	http.HandleFunc("/login", HandlerLogin)
